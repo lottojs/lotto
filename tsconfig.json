@@ -1,0 +1,7 @@
+{
+    "extends": "@lottojs/ts-config/base.json",
+    "compilerOptions": {
+        "outDir": "./lib",
+        "baseUrl": "."
+    },
+}
