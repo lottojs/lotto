@@ -1,1 +1,1 @@
-# router
+# @lottojs/router
