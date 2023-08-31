@@ -1,7 +1,15 @@
 {
-    "extends": "@lottojs/ts-config/base.json",
+    "extends": "./node_modules/@lottojs/ts-config/base.json",
     "compilerOptions": {
+        "lib": [ "es2021" ],
         "outDir": "./lib",
-        "baseUrl": "."
+        "baseUrl": ".",
+        "paths": {
+            "@core/*": ["./src/core/*"]
+        }
     },
+    "include": ["src/**/*", "sample/**/*"],
+    "ts-node": {
+        "require": ["tsconfig-paths/register"]
+    }
 }

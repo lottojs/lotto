@@ -1,0 +1,10 @@
+{
+    "extends": [
+        "./node_modules/@lottojs/eslint-config/node"
+    ],
+    "rules": {
+        "no-empty-function": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-empty-interface": "off"
+    }
+}

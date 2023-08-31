@@ -25,11 +25,23 @@
   },
   "homepage": "https://github.com/lottojs/router#readme",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc && tscpaths -p ./tsconfig.json -s src -o lib",
+    "dev": "ts-node -r tsconfig-paths/register sample/index.ts",
+    "dev:debug": "DEBUG=lottojs:* ts-node -r tsconfig-paths/register sample/index.ts",
+    "lint": "eslint src --ext .ts --fix"
+  },
+  "dependencies": {
+    "@lottojs/body-parser": "^0.1.2",
+    "@lottojs/params-parser": "^0.1.1",
+    "debug": "^4.3.4"
   },
   "devDependencies": {
+    "@lottojs/eslint-config": "^0.1.0",
     "@lottojs/ts-config": "^0.1.0",
+    "@types/debug": "^4.1.8",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "tscpaths": "^0.0.9",
     "typescript": "^5.1.6"
   }
 }
