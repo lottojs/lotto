@@ -1,30 +1,31 @@
 import { Router } from '@core/router/router'
 import { Server, ServerOptions } from '@core/server/server'
 
-interface LottoRouterOptions extends ServerOptions {
+interface LottoOptions extends ServerOptions {
     /**
      * Api prefix e.g. /api/v1
      */
     prefix?: string
 }
 
-interface AbstractLottoRouter {
+interface AbstractLotto {
     init: (after?: (...args: unknown[]) => void) => void
 }
 
-export class LottoRouter extends Router implements AbstractLottoRouter {
+export class Lotto extends Router implements AbstractLotto {
     private server: Server
 
     /**
      * LottoJS HTTP Router
      * @param options Server options
      */
-    constructor({ host, port, prefix = '/' }: LottoRouterOptions) {
+    constructor(options?: LottoOptions) {
         super()
-        this.prefix = prefix
+
+        if (options?.prefix) this.prefix = options.prefix
         this.server = new Server({
-            host,
-            port,
+            ...(options?.host ? { host: options.host } : {}),
+            ...(options?.port ? { port: options.port } : {}),
         })
     }
 

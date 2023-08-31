@@ -1,7 +1,7 @@
 {
-  "name": "@lottojs/router",
+  "name": "@lottojs/lotto",
   "version": "0.1.0",
-  "description": "Simple and lightweight NodeJS routing library.",
+  "description": "Simple, lightweight and dependency-free NodeJS web application framework.",
   "author": "Pedro Harbs <harbspj@gmail.com>",
   "license": "MIT",
   "main": "lib/index.js",
@@ -31,13 +31,13 @@
     "lint": "eslint src --ext .ts --fix"
   },
   "dependencies": {
-    "@lottojs/body-parser": "^0.1.2",
-    "@lottojs/params-parser": "^0.1.1",
+    "@lottojs/body-parser": "^0.2.0",
+    "@lottojs/params-parser": "^0.2.0",
     "debug": "^4.3.4"
   },
   "devDependencies": {
-    "@lottojs/eslint-config": "^0.1.0",
-    "@lottojs/ts-config": "^0.1.0",
+    "@lottojs/eslint-config": "^0.2.0",
+    "@lottojs/ts-config": "^0.2.0",
     "@types/debug": "^4.1.8",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",

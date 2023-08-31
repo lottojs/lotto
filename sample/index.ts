@@ -1,4 +1,4 @@
-import { LottoRouter } from '../src'
+import { Lotto, Router } from '../src'
 
 const users = [
     {
@@ -30,7 +30,7 @@ const profiles = [
     { id: 4, userId: 4, sex: 'female', nationality: 'Serbian' },
 ]
 
-const lottoJS = new LottoRouter({
+const lottoJS = new Lotto({
     host: '0.0.0.0',
     port: 9004,
     prefix: '/api',
@@ -51,7 +51,9 @@ lottoJS.get('/', ({ res }) => {
     return res.status(200).text('welcome!')
 })
 
-lottoJS.get('users', ({ req, res }) => {
+const lottoRouter = new Router()
+
+lottoRouter.get('/', ({ req, res }) => {
     const { name } = req.query
 
     if (!name) return res.status(200).json(users)
@@ -67,7 +69,7 @@ lottoJS.get('users', ({ req, res }) => {
     return res.status(200).json(searchUsers)
 })
 
-lottoJS.get('users/:id', ({ req, res }) => {
+lottoRouter.get('/:id', ({ req, res }) => {
     const userId = Number(req.param('id'))
     const showFullInfo = req.get('full')
 
@@ -96,7 +98,7 @@ lottoJS.get('users/:id', ({ req, res }) => {
     })
 })
 
-lottoJS.put('users/:id', ({ req, res }) => {
+lottoRouter.put('/:id', ({ req, res }) => {
     const { id } = req.params
     const body = req.body
 
@@ -125,5 +127,7 @@ lottoJS.put('users/:id', ({ req, res }) => {
         ...profile,
     })
 })
+
+lottoJS.use('users', lottoRouter)
 
 lottoJS.init()
