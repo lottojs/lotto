@@ -130,7 +130,9 @@ export class Router implements AbstractRouter {
      * @returns this
      */
     private serve(method: Method, ...input: any[]): this {
-        if (input.length === 2 && typeof input[2] === 'function') {
+        if (input.length === 2 && typeof input[1] === 'function') {
+            this.register(method, input[0], input[1])
+        } else if (input.length === 2 && typeof input[2] === 'function') {
             this.register(method, input[0], input[2])
         } else if (
             input.length === 3 &&
