@@ -36,7 +36,7 @@
 
 Lorenzo Lotto was a Venetian painter who lived in the [Serenissima Repubblica di Venezia][serenissima-url] and was one of the main exponents of the Venetian Renaissance of the early sixteenth century.
 
-[@lottojs/lotto](https://github.com/lottojs/lotto) is a simple, lightweight and dependency-free NodeJS web application framework, thought to help building apis on a quickly way due to the provision of prefabricated middlewares and helpers.
+[@lottojs/lotto](https://github.com/lottojs/lotto) is a simple, lightweight and dependency-free NodeJS web application framework, thought to help building apis on a quickly way due to the provision of built-in middlewares and helpers.
 
 ## Documentation
 Complete API documentation will be available soon at [lotto.dev](https://lotto.dev).
@@ -63,7 +63,7 @@ Designed to be simple...
 
 - Fast 🚀 - Router based on RegExp.
 - Lightweight 🪶 - Lotto has zero external dependencies and uses only the [node:http](https://nodejs.org/api/http.html) api.
-- Prefabricated 📦 - Lotto has built-in middlewares ([@lottojs/body-parser](https://github.com/lottojs/body-parser) and [@lottojs/params-parser](https://github.com/lottojs/params-parser)), built-in helpers and supports custom middlewares.
+- Built-in 📦 - Lotto has built-in middlewares ([@lottojs/body-parser](https://github.com/lottojs/body-parser) and [@lottojs/params-parser](https://github.com/lottojs/params-parser)), built-in helpers and supports custom middlewares.
 - Route Nesting 🪹 - Give power to your application using the `Router` class.
 
 
