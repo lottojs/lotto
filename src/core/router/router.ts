@@ -21,9 +21,9 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    all(path: Path, middlewares: Middleware[], handler: Handler): void
-    all(path: Path, handler: Handler): void
-    all(path: Path, ...input: any[]): void
+    all(path: Path, middlewares: Middleware[], handler: Handler): this
+    all(path: Path, handler: Handler): this
+    all(path: Path, ...input: any[]): this
 
     /**
      * Define a route on GET HTTP method.
@@ -31,9 +31,9 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    get(path: Path, middlewares: Middleware[], handler: Handler): void
-    get(path: Path, handler: Handler): void
-    get(path: Path, ...input: any[]): void
+    get(path: Path, middlewares: Middleware[], handler: Handler): this
+    get(path: Path, handler: Handler): this
+    get(path: Path, ...input: any[]): this
 
     /**
      * Define a route on POST HTTP method.
@@ -41,9 +41,9 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    post(path: Path, middlewares: Middleware[], handler: Handler): void
-    post(path: Path, handler: Handler): void
-    post(path: Path, ...input: any[]): void
+    post(path: Path, middlewares: Middleware[], handler: Handler): this
+    post(path: Path, handler: Handler): this
+    post(path: Path, ...input: any[]): this
 
     /**
      * Define a route on PUT HTTP method.
@@ -51,9 +51,9 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    put(path: Path, middlewares: Middleware[], handler: Handler): void
-    put(path: Path, handler: Handler): void
-    put(path: Path, ...input: any[]): void
+    put(path: Path, middlewares: Middleware[], handler: Handler): this
+    put(path: Path, handler: Handler): this
+    put(path: Path, ...input: any[]): this
 
     /**
      * Define a route on PATCH HTTP method.
@@ -61,9 +61,9 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    patch(path: Path, middlewares: Middleware[], handler: Handler): void
-    patch(path: Path, handler: Handler): void
-    patch(path: Path, ...input: any[]): void
+    patch(path: Path, middlewares: Middleware[], handler: Handler): this
+    patch(path: Path, handler: Handler): this
+    patch(path: Path, ...input: any[]): this
 
     /**
      * Define a route on DELETE HTTP method.
@@ -71,9 +71,9 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    delete(path: Path, middlewares: Middleware[], handler: Handler): void
-    delete(path: Path, handler: Handler): void
-    delete(path: Path, ...input: any[]): void
+    delete(path: Path, middlewares: Middleware[], handler: Handler): this
+    delete(path: Path, handler: Handler): this
+    delete(path: Path, ...input: any[]): this
 
     /**
      * Define a route on OPTIONS HTTP method.
@@ -81,9 +81,9 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    options(path: Path, middlewares: Middleware[], handler: Handler): void
-    options(path: Path, handler: Handler): void
-    options(path: Path, ...input: any[]): void
+    options(path: Path, middlewares: Middleware[], handler: Handler): this
+    options(path: Path, handler: Handler): this
+    options(path: Path, ...input: any[]): this
 
     /**
      * Define a route on HEAD HTTP method.
@@ -91,9 +91,9 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    head(path: Path, middlewares: Middleware[], handler: Handler): void
-    head(path: Path, handler: Handler): void
-    head(path: Path, ...input: any[]): void
+    head(path: Path, middlewares: Middleware[], handler: Handler): this
+    head(path: Path, handler: Handler): this
+    head(path: Path, ...input: any[]): this
 }
 
 export interface Router extends AbstractRouter {}

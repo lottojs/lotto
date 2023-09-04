@@ -68,7 +68,7 @@ export class Server implements AbstractServer {
         }
 
         const { host, port } = this.options
-        this.server.listen({ path: '/api', port, host }, () => {
+        this.server.listen({ port, host }, () => {
             debug(`Listening on port ${port}`)
 
             if (callback) {

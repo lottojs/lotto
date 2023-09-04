@@ -39,7 +39,7 @@ Lorenzo Lotto was a Venetian painter who lived in the [Serenissima Repubblica di
 [@lottojs/lotto](https://github.com/lottojs/lotto) is a simple, lightweight and dependency-free NodeJS web application framework, thought to help building apis on a quickly way due to the provision of built-in middlewares and helpers.
 
 ## Documentation
-Complete API documentation will be available soon at [lotto.dev](https://lotto.dev).
+Complete API documentation is available at [lotto.tech](https://lotto.tech).
 
 ## Getting Started
 
