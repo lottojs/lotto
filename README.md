@@ -39,7 +39,7 @@ Lorenzo Lotto was a Venetian painter who lived in the [Serenissima Repubblica di
 [@lottojs/lotto](https://github.com/lottojs/lotto) is a simple, lightweight and dependency-free NodeJS web application framework, thought to help building apis on a quickly way due to the provision of built-in middlewares and helpers.
 
 ## Documentation
-Complete API documentation is available at [lottojs.tech](https://lottojs.tech).
+Complete API documentation is available at [lottojs.tech][documentation-url].
 
 ## Getting Started
 
@@ -66,6 +66,17 @@ Designed to be simple...
 - Built-in 📦 - Lotto has built-in middlewares ([@lottojs/body-parser](https://github.com/lottojs/body-parser) and [@lottojs/params-parser](https://github.com/lottojs/params-parser)), built-in helpers and supports custom middlewares.
 - Route Nesting 🪹 - Give power to your application using the `Router` class.
 
+## Contributing
+
+All forms of contributions are more than welcome! You can contribute in the following ways:
+
+- Create an Issue
+- Create a Pull Request
+- Create third-party middlewares
+- Share with your friends
+- Make your application with `Lotto`.
+
+For more details, see [Contribution Guide](./CONTRIBUTING.md).
 
 ## License
 
@@ -87,3 +98,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [npm-shield]: https://img.shields.io/npm/v/@lottojs/lotto?style=for-the-badge&logo=npm&logoColor=FFFFFF&labelColor=555555&color=CB0001
 [npm-url]: https://www.npmjs.com/package/@lottojs/lotto
 [serenissima-url]: https://it.wikipedia.org/wiki/Repubblica_di_Venezia
+[documentation-url]: https://lottojs.tech
