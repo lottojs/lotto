@@ -2,3 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npx validate-branch-name
+npx lint-staged
+git add -A .
