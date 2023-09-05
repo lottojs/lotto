@@ -39,9 +39,7 @@ const lottoJS = new Lotto({
 // Auth middleware
 lottoJS.use(({ req, res, next }) => {
     if (req.headers.authorization !== '1234') {
-        return res.status(401).json({
-            message: 'unauthorized.',
-        })
+        return res.status(401).json({ message: 'unauthorized.' })
     }
 
     next()
