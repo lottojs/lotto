@@ -1,5 +1,4 @@
 import Debug, { Debugger } from 'debug'
-import { Router } from '@core/router/router'
 import { Path } from '@core/router/router.types'
 
 /**
@@ -42,29 +41,11 @@ export function isInstanceOf(input: unknown, name: string) {
 }
 
 /**
- * Verify if the input is from type Router
- * @param input Any type of data
- * @returns boolean
- */
-export function isRouterInstance(input: unknown): input is Router {
-    return isInstanceOf(input, 'Router')
-}
-
-/**
  * Verify if the input is from type Path
  * @param input Any type of data
  * @returns boolean
  */
 export function isPath(input: unknown): input is Path {
-    return typeof input === 'string'
-}
-
-/**
- * Verify if the input is from type string
- * @param input Any type of data
- * @returns boolean
- */
-export function isString(input: unknown): input is string {
     return typeof input === 'string'
 }
 
@@ -87,7 +68,7 @@ export function toJson(data: string): JSON {
 }
 
 /**
- * Clean trailling slashes from a path.
+ * Clean trailling and duplicate slashes from a path.
  * @param path url path e.g.: /users
  * @returns path as string
  */
