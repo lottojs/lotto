@@ -246,7 +246,10 @@ export class Routing {
                     )
 
                     try {
-                        const isErrorHandlingCustomMiddleware = /error/.test(
+                        const regex =
+                            /\(\s*{[^{}]*\b(?:error)(?![^"']*["'])\b[^{}]*}\s*\)/gm
+
+                        const isErrorHandlingCustomMiddleware = regex.test(
                             middleware.toString(),
                         )
 
