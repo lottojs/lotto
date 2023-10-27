@@ -134,6 +134,14 @@ export class Routing {
                             `/${mountPoint}/${route.path}`,
                             route.handler,
                         )
+
+                        route.middlewares.forEach((mid) => {
+                            this.middleware(
+                                `/${mountPoint}/${route.path}`,
+                                mid,
+                                route.method,
+                            )
+                        })
                     })
                 }
                 continue
