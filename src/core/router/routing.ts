@@ -2,13 +2,11 @@ import {
     Route,
     Handler,
     Method,
-    Middleware,
     Context,
     Path,
-    ErrorHandler,
 } from '@core/router/router.types'
 import { buildRouteParameters, handlerUtils } from '@core/router/router.utils'
-import { internalError, notFoundError } from '@core/router/router.errors'
+import { notFoundError } from '@core/router/router.errors'
 import { bodyParser } from '@lottojs/body-parser'
 import { paramsParser } from '@lottojs/params-parser'
 import { cleanPath, isInstanceOf, isPath, toDebug } from '@core/utils/utils'
@@ -91,7 +89,7 @@ export class Routing {
      */
     protected middleware(
         path: Path,
-        middleware: Middleware,
+        middleware: Handler,
         method: Method,
     ): void {
         path = cleanPath(`/${this.prefix}/${path}`)
@@ -114,11 +112,9 @@ export class Routing {
      * @param middleware Middleware callback.
      */
     public use(router: Router): this
-    public use(handler: Middleware): this
-    public use(handler: ErrorHandler): this
+    public use(handler: Handler): this
     public use(path: Path, router: Router): this
-    public use(path: Path, handler: Middleware): this
-    public use(path: Path, handler: ErrorHandler): this
+    public use(path: Path, handler: Handler): this
     public use(...input: unknown[]): this {
         if (input.length === 0) return this
 
@@ -147,7 +143,7 @@ export class Routing {
                 const matchsRoute = this.match(mountPoint, false, 'ALL')
                 if (!matchsRoute) this.register('ALL', '\\*', () => {})
 
-                this.middleware('*', item as Middleware, 'ALL')
+                this.middleware('*', item as Handler, 'ALL')
             }
         }
 
@@ -196,7 +192,7 @@ export class Routing {
 
         const route = this.match(url, true, method as Method)
         if (route) {
-            const allMiddlewares: Middleware[] = []
+            const allMiddlewares: Handler[] = []
 
             // general middlewares
             const rootRoute = this.match(`${this.prefix}/*`, true, 'ALL')
@@ -217,11 +213,12 @@ export class Routing {
             for (const mid of routeMiddlewares) allMiddlewares.push(mid)
 
             let index = 0
-            const middlewareWithParsedRequest: any[] = [
+            const middlewareWithParsedRequest: Handler[] = [
                 // parse query and path parameters
                 paramsParser(route.regExpPath.source),
             ]
 
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             if (['POST', 'PUT', 'PATCH'].includes(ctx.req.method!)) {
                 // parse body
                 middlewareWithParsedRequest.push(bodyParser())
@@ -231,16 +228,38 @@ export class Routing {
             middlewareWithParsedRequest.push(...allMiddlewares)
 
             const next = (error?: Error) => {
-                if (error) return internalError(ctx.res, error)
-
                 if (index < middlewareWithParsedRequest.length) {
                     const idx = index++
+
                     const middleware = middlewareWithParsedRequest[idx]
 
                     debug(
                         `Calls middleware [${idx}] for route [${route.method}] - ${route.path}.`,
                     )
-                    middleware({ req: ctx.req, res: ctx.res, next })
+
+                    try {
+                        const isErrorHandlingCustomMiddleware = /error/.test(
+                            middleware.toString(),
+                        )
+
+                        if (isErrorHandlingCustomMiddleware) {
+                            next(error)
+                        } else {
+                            middleware({
+                                error,
+                                next,
+                                req: ctx.req,
+                                res: ctx.res,
+                            })
+                        }
+                    } catch (err) {
+                        middleware({
+                            error: err,
+                            next,
+                            req: ctx.req,
+                            res: ctx.res,
+                        })
+                    }
                 } else {
                     handler(ctx)
                 }

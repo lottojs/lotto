@@ -82,7 +82,7 @@ export interface Request extends IncomingMessage {
      */
     query: ParsedQuery
 }
-export interface Response extends ServerResponse {
+export interface Response<T = unknown> extends ServerResponse {
     /**
      * Send application/json response.
      *
@@ -94,14 +94,14 @@ export interface Response extends ServerResponse {
      * @param body Data to be transformed on JSON.
      * @returns Response
      */
-    json: (body?: any) => Response
+    json: (body?: unknown) => Response<T>
 
     /**
      * Set status `code`.
      * @param code HTTP status code e.g. 200, 201, 400, 404...
      * @returns Response
      */
-    status: (code: number) => Response
+    status: (code: number) => Response<T>
 
     /**
      * Send text/plain response.
@@ -113,7 +113,7 @@ export interface Response extends ServerResponse {
      * @param body Data to be transformed on text.
      * @returns Response
      */
-    text: (body: unknown) => Response
+    text: (body: unknown) => Response<T>
 }
 
 export type RegExpPath = RegExp
@@ -129,8 +129,13 @@ export type Method =
     | 'OPTIONS'
     | 'HEAD'
 
-export type NextFunction = (...args: unknown[]) => void
+export type NextFunction = (...args: any[]) => void
 export type Context = {
+    /**
+     * Error Object
+     */
+    error?: any
+
     /**
      * Request Object
      */
@@ -147,9 +152,7 @@ export type Context = {
      */
     next: NextFunction
 }
-export type ErrorHandler = (error: any, ctx: Context) => void
 export type Handler = (ctx: Context) => void
-export type Middleware = (ctx: Context) => void
 
 export type Route = {
     /**
@@ -175,5 +178,5 @@ export type Route = {
     /**
      * Route middlewares.
      */
-    middlewares: Middleware[]
+    middlewares: Handler[]
 }

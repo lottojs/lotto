@@ -1,4 +1,4 @@
-import { Handler, Method, Middleware, Path } from '@core/router/router.types'
+import { Handler, Method, Path } from '@core/router/router.types'
 import { Routing } from '@core/router/routing'
 
 interface AbstractRouter {
@@ -8,7 +8,7 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    all(path: Path, middlewares: Middleware[], handler: Handler): this
+    all(path: Path, middlewares: Handler[], handler: Handler): this
     all(path: Path, handler: Handler): this
     all(path: Path, ...input: any[]): this
 
@@ -18,7 +18,7 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    get(path: Path, middlewares: Middleware[], handler: Handler): this
+    get(path: Path, middlewares: Handler[], handler: Handler): this
     get(path: Path, handler: Handler): this
     get(path: Path, ...input: any[]): this
 
@@ -28,7 +28,7 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    post(path: Path, middlewares: Middleware[], handler: Handler): this
+    post(path: Path, middlewares: Handler[], handler: Handler): this
     post(path: Path, handler: Handler): this
     post(path: Path, ...input: any[]): this
 
@@ -38,7 +38,7 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    put(path: Path, middlewares: Middleware[], handler: Handler): this
+    put(path: Path, middlewares: Handler[], handler: Handler): this
     put(path: Path, handler: Handler): this
     put(path: Path, ...input: any[]): this
 
@@ -48,7 +48,7 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    patch(path: Path, middlewares: Middleware[], handler: Handler): this
+    patch(path: Path, middlewares: Handler[], handler: Handler): this
     patch(path: Path, handler: Handler): this
     patch(path: Path, ...input: any[]): this
 
@@ -58,7 +58,7 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    delete(path: Path, middlewares: Middleware[], handler: Handler): this
+    delete(path: Path, middlewares: Handler[], handler: Handler): this
     delete(path: Path, handler: Handler): this
     delete(path: Path, ...input: any[]): this
 
@@ -68,7 +68,7 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    options(path: Path, middlewares: Middleware[], handler: Handler): this
+    options(path: Path, middlewares: Handler[], handler: Handler): this
     options(path: Path, handler: Handler): this
     options(path: Path, ...input: any[]): this
 
@@ -78,7 +78,7 @@ interface AbstractRouter {
      * @param handler Callback to be executed when the route is called.
      * @returns
      */
-    head(path: Path, middlewares: Middleware[], handler: Handler): this
+    head(path: Path, middlewares: Handler[], handler: Handler): this
     head(path: Path, handler: Handler): this
     head(path: Path, ...input: any[]): this
 }
