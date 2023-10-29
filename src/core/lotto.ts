@@ -24,6 +24,7 @@ export class Lotto extends Router implements AbstractLotto {
 
         if (options?.prefix) this.prefix = options.prefix
         if (options?.cors) this.cors = options.cors
+        if (options?.secureHeaders) this.secureHeaders = options.secureHeaders
         this.server = new Server({
             ...(options?.host ? { host: options.host } : {}),
             ...(options?.port ? { port: options.port } : {}),

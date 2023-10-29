@@ -32,7 +32,7 @@ const profiles = [
 
 const lottoJS = new Lotto({
     host: '0.0.0.0',
-    port: 9004,
+    port: 9003,
     prefix: '/api',
 })
 

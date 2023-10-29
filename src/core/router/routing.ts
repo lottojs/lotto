@@ -13,12 +13,15 @@ import { paramsParser } from '@lottojs/params-parser'
 import { cleanPath, isInstanceOf, isPath, toDebug } from '@core/utils/utils'
 import { Router } from '@core/router/router'
 import { cors } from '@lottojs/cors'
+import { secureHeaders } from '@lottojs/secure-headers'
+import { SecurityHeaders } from '@lottojs/secure-headers/lib/core/types'
 const debug = toDebug('router')
 
 export class Routing {
     protected routes: Route[] = []
     protected prefix = '/'
     protected cors: Cors | undefined
+    protected secureHeaders: SecurityHeaders | undefined
 
     /**
      * Find a route by path or/and method.
@@ -225,17 +228,16 @@ export class Routing {
 
             let index = 0
             const middlewareWithParsedRequest: Handler[] = [
-                // add cors headers, methods etc.
-                cors(
-                    this.cors?.allowedSites,
-                    this.cors?.allowedMethods,
-                    this.cors?.allowedHeaders,
-                    this.cors?.exposeHeaders,
-                    this.cors?.allowCredentials,
-                ),
+                // add security headers.
+                secureHeaders(this.secureHeaders),
                 // parse query and path parameters
                 paramsParser(route.regExpPath.source),
             ]
+
+            if (this.cors) {
+                // add cors headers, methods etc.
+                middlewareWithParsedRequest.push(cors(this.cors))
+            }
 
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             if (['POST', 'PUT', 'PATCH'].includes(ctx.req.method!)) {

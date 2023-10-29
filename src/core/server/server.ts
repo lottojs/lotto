@@ -11,6 +11,7 @@ import {
     Response,
 } from '@core/router/router.types'
 import { toDebug } from '@core/utils/utils'
+import { SecurityHeaders } from '@lottojs/secure-headers/lib/core/types'
 const debug = toDebug('server')
 
 export interface ServerOptions {
@@ -28,6 +29,11 @@ export interface ServerOptions {
      * Cross-Origin Resource Sharing (CORS) headers and methods
      */
     cors?: Cors
+
+    /**
+     * Represents various security headers that can be applied.
+     */
+    secureHeaders?: SecurityHeaders
 }
 
 export interface AbstractServer {
