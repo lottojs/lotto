@@ -4,6 +4,7 @@ import {
     Method,
     Context,
     Path,
+    Cors,
 } from '@core/router/router.types'
 import { buildRouteParameters, handlerUtils } from '@core/router/router.utils'
 import { notFoundError } from '@core/router/router.errors'
@@ -11,11 +12,13 @@ import { bodyParser } from '@lottojs/body-parser'
 import { paramsParser } from '@lottojs/params-parser'
 import { cleanPath, isInstanceOf, isPath, toDebug } from '@core/utils/utils'
 import { Router } from '@core/router/router'
+import { cors } from '@lottojs/cors'
 const debug = toDebug('router')
 
 export class Routing {
     protected routes: Route[] = []
     protected prefix = '/'
+    protected cors: Cors | undefined
 
     /**
      * Find a route by path or/and method.
@@ -222,6 +225,14 @@ export class Routing {
 
             let index = 0
             const middlewareWithParsedRequest: Handler[] = [
+                // add cors headers, methods etc.
+                cors(
+                    this.cors?.allowedSites,
+                    this.cors?.allowedMethods,
+                    this.cors?.allowedHeaders,
+                    this.cors?.exposeHeaders,
+                    this.cors?.allowCredentials,
+                ),
                 // parse query and path parameters
                 paramsParser(route.regExpPath.source),
             ]

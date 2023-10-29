@@ -33,6 +33,7 @@
     },
     "dependencies": {
         "@lottojs/body-parser": "^0.2.0",
+        "@lottojs/cors": "^0.1.1",
         "@lottojs/params-parser": "^0.2.0",
         "debug": "^4.3.4"
     },

@@ -5,6 +5,7 @@ import http, {
 } from 'node:http'
 import {
     NextFunction as CallbackFunction,
+    Cors,
     Handler,
     Request,
     Response,
@@ -22,6 +23,11 @@ export interface ServerOptions {
      * Server host e.g. 0.0.0.0
      */
     host?: string
+
+    /**
+     * Cross-Origin Resource Sharing (CORS) headers and methods
+     */
+    cors?: Cors
 }
 
 export interface AbstractServer {
@@ -36,8 +42,8 @@ export class Server implements AbstractServer {
     /**
      * Server configurations as port, host...
      */
-    constructor({ port = 9004, host = '0.0.0.0' }: ServerOptions) {
-        this.options = { port, host }
+    constructor({ port = 9004, host = '0.0.0.0', cors }: ServerOptions) {
+        this.options = { port, host, cors }
     }
 
     /**

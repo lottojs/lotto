@@ -180,3 +180,11 @@ export type Route = {
      */
     middlewares: Handler[]
 }
+
+export type Cors = {
+    allowedSites: string[]
+    allowedMethods?: string[]
+    allowedHeaders?: string[]
+    exposeHeaders?: string[]
+    allowCredentials?: boolean
+}
