@@ -5,13 +5,13 @@ import http, {
 } from 'node:http'
 import {
     NextFunction as CallbackFunction,
-    Cors,
     Handler,
     Request,
     Response,
 } from '@core/router/router.types'
 import { toDebug } from '@core/utils/utils'
 import { SecurityHeaders } from '@lottojs/secure-headers/lib/core/types'
+import { CorsObject } from '@lottojs/cors/lib/core/types'
 const debug = toDebug('server')
 
 export interface ServerOptions {
@@ -28,7 +28,7 @@ export interface ServerOptions {
     /**
      * Cross-Origin Resource Sharing (CORS) headers and methods
      */
-    cors?: Cors
+    cors?: CorsObject
 
     /**
      * Represents various security headers that can be applied.

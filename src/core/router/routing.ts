@@ -4,7 +4,6 @@ import {
     Method,
     Context,
     Path,
-    Cors,
 } from '@core/router/router.types'
 import { buildRouteParameters, handlerUtils } from '@core/router/router.utils'
 import { notFoundError } from '@core/router/router.errors'
@@ -15,12 +14,13 @@ import { Router } from '@core/router/router'
 import { cors } from '@lottojs/cors'
 import { secureHeaders } from '@lottojs/secure-headers'
 import { SecurityHeaders } from '@lottojs/secure-headers/lib/core/types'
+import { CorsObject } from '@lottojs/cors/lib/core/types'
 const debug = toDebug('router')
 
 export class Routing {
     protected routes: Route[] = []
     protected prefix = '/'
-    protected cors: Cors | undefined
+    protected cors: CorsObject | undefined
     protected secureHeaders: SecurityHeaders | undefined
 
     /**
@@ -230,14 +230,11 @@ export class Routing {
             const middlewareWithParsedRequest: Handler[] = [
                 // add security headers.
                 secureHeaders(this.secureHeaders),
+                // adds cors headers, methods etc.
+                cors(this.cors),
                 // parse query and path parameters
                 paramsParser(route.regExpPath.source),
             ]
-
-            if (this.cors) {
-                // add cors headers, methods etc.
-                middlewareWithParsedRequest.push(cors(this.cors))
-            }
 
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             if (['POST', 'PUT', 'PATCH'].includes(ctx.req.method!)) {
