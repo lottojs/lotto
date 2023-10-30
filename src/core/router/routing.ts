@@ -204,6 +204,13 @@ export class Routing {
         // includes utils as json(), status() and so on...
         handlerUtils(ctx.req, ctx.res)
 
+        const isPreflight = method === 'OPTIONS'
+
+        if (isPreflight) {
+            // cors middleware for preflight purpouses
+            return cors(this.cors ?? {})(ctx)
+        }
+
         const route = this.match(url, true, method as Method)
         if (route) {
             const allMiddlewares: Handler[] = []
@@ -231,7 +238,7 @@ export class Routing {
                 // add security headers.
                 secureHeaders(this.secureHeaders),
                 // adds cors headers, methods etc.
-                cors(this.cors),
+                cors(this.cors ?? {}),
                 // parse query and path parameters
                 paramsParser(route.regExpPath.source),
             ]
