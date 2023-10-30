@@ -280,7 +280,7 @@ export class Routing {
                         index = 0
                     }
 
-                    handler(ctx)
+                    handler({ req: ctx.req, res: ctx.res, next })
                 }
             }
 
