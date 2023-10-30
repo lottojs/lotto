@@ -1,6 +1,6 @@
 {
     "name": "@lottojs/lotto",
-    "version": "0.3.5",
+    "version": "0.3.6",
     "description": "Simple, lightweight and dependency-free NodeJS web application framework.",
     "author": "Pedro Harbs <harbspj@gmail.com>",
     "license": "MIT",
@@ -35,7 +35,7 @@
         "@lottojs/body-parser": "^0.2.0",
         "@lottojs/cors": "^0.1.5",
         "@lottojs/params-parser": "^0.2.0",
-        "@lottojs/secure-headers": "^0.1.3",
+        "@lottojs/secure-headers": "^0.1.4",
         "debug": "^4.3.4"
     },
     "devDependencies": {

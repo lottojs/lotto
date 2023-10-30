@@ -255,33 +255,31 @@ export class Routing {
                         `Calls middleware [${idx}] for route [${route.method}] - ${route.path}.`,
                     )
 
-                    try {
-                        const regex =
-                            /\(\s*{[^{}]*\b(?:error)(?![^"']*["'])\b[^{}]*}\s*\)/gm
+                    const regex =
+                        /(?<!["'{}])\({[^{}]*\berror\b[^{}]*}\)(?![^{}]*})/g
 
-                        const isErrorHandlingCustomMiddleware = regex.test(
-                            middleware.toString(),
-                        )
+                    const isErrorHandlingCustomMiddleware = regex.test(
+                        middleware.toString(),
+                    )
 
-                        if (isErrorHandlingCustomMiddleware) {
-                            next(error)
-                        } else {
-                            middleware({
-                                error,
-                                next,
-                                req: ctx.req,
-                                res: ctx.res,
-                            })
-                        }
-                    } catch (err) {
+                    if (
+                        (isErrorHandlingCustomMiddleware && error) ||
+                        (!isErrorHandlingCustomMiddleware && !error)
+                    ) {
                         middleware({
-                            error: err,
+                            error,
                             next,
                             req: ctx.req,
                             res: ctx.res,
                         })
+                    } else {
+                        next(error)
                     }
                 } else {
+                    if (error) {
+                        index = 0
+                    }
+
                     handler(ctx)
                 }
             }
