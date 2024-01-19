@@ -99,6 +99,7 @@ export class Router extends Routing implements AbstractRouter {
             'OPTIONS',
             'HEAD',
             'ALL',
+            'DELETE',
         ]
 
         httpMethods.forEach((method) => {
