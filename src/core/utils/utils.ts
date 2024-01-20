@@ -73,5 +73,5 @@ export function toJson(data: string): JSON {
  * @returns path as string
  */
 export function cleanPath(path: Path): string {
-    return path.replace(/\/+/g, '/').replace(/\/+$/, '')
+    return path.replace(/\/{2,}/g, '/').replace(/^\/+/g, '/')
 }
