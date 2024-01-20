@@ -285,9 +285,10 @@ export class Routing {
                 } else {
                     if (error) {
                         index = 0
+                        next(error)
+                    } else {
+                        handler({ req: ctx.req, res: ctx.res, next })
                     }
-
-                    handler({ req: ctx.req, res: ctx.res, next })
                 }
             }
 
