@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable prettier/prettier */
 import {
     Route,
     Handler,
@@ -155,9 +157,9 @@ export class Routing {
 
             if (typeof item === 'function') {
                 const matchsRoute = this.match(mountPoint, false, 'ALL')
-                if (!matchsRoute) this.register('ALL', '\\*', () => {})
+                if (!matchsRoute) this.register('ALL', '\*', () => {})
 
-                this.middleware('*', item as Handler, 'ALL')
+                this.middleware('\*', item as Handler, 'ALL')
             }
         }
 

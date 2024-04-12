@@ -51,10 +51,9 @@ export function handlerUtils(req: Context['req'], res: Context['res']): void {
  * @returns
  */
 export function buildRouteParameters(path: string) {
-    const routeParamsRegex = /:([a-zA-Z]+)/g
-    const pathWithParams = path.replaceAll(
-        routeParamsRegex,
-        '(?<$1>[a-zA-Z0-9-_]+)',
+    const routeParamsRegex = /:([^/:]+)|\*/g
+    const pathWithParams = path.replace(routeParamsRegex, (_, paramName) =>
+        paramName ? `(?<${paramName}>[^/]+)` : '.*',
     )
 
     const pathRegex = new RegExp(`^${pathWithParams}(?<query>\\?(.*))?$`)

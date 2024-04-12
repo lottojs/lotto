@@ -1,6 +1,6 @@
 {
     "name": "@lottojs/lotto",
-    "version": "0.4.6",
+    "version": "0.4.8",
     "description": "Simple, lightweight and dependency-free NodeJS web application framework.",
     "author": "Pedro Harbs <harbspj@gmail.com>",
     "license": "MIT",
