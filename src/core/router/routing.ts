@@ -6,6 +6,7 @@ import {
     Method,
     Context,
     Path,
+    Middleware,
 } from '@core/router/router.types'
 import { buildRouteParameters, handlerUtils } from '@core/router/router.utils'
 import { notFoundError } from '@core/router/router.errors'
@@ -24,6 +25,7 @@ export class Routing {
     protected prefix = '/'
     protected cors: CorsObject | undefined
     protected secureHeaders: SecurityHeaders | undefined
+    private useCalls = 0
 
     /**
      * Find a route by path or/and method.
@@ -77,6 +79,7 @@ export class Routing {
                 regExpPath,
                 handler,
                 middlewares: [],
+                group: this.useCalls,
             })
 
             if (method === 'ALL' && path.includes('*')) {
@@ -97,7 +100,7 @@ export class Routing {
      */
     protected middleware(
         path: Path,
-        middleware: Handler,
+        middleware: Middleware,
         method: Method,
     ): void {
         path = cleanPath(`/${this.prefix}/${path}`)
@@ -146,7 +149,12 @@ export class Routing {
                         route.middlewares.forEach((mid) => {
                             this.middleware(
                                 `/${mountPoint}/${route.path}`,
-                                mid,
+                                {
+                                    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                    // @ts-ignore
+                                    handler: mid,
+                                    group: this.useCalls,
+                                },
                                 route.method,
                             )
                         })
@@ -159,9 +167,11 @@ export class Routing {
                 const matchsRoute = this.match(mountPoint, false, 'ALL')
                 if (!matchsRoute) this.register('ALL', '\*', () => {})
 
-                this.middleware('\*', item as Handler, 'ALL')
+                this.middleware('\*', {handler: item as Handler, group: this.useCalls }, 'ALL')
             }
         }
+
+        this.useCalls = this.useCalls + 1
 
         return this
     }
@@ -224,16 +234,19 @@ export class Routing {
 
                 middlewares.reverse()
                 for await (const [idx, mid] of middlewares.entries()) {
-                    allMiddlewares.unshift(mid)
-                    debug(
-                        `Adds general middleware [${idx}] to route [${route.method}] - ${route.path}.`,
-                    )
+                    if (mid.group <= route.group) {
+                        allMiddlewares.unshift(mid.handler)
+
+                        debug(
+                            `Adds general middleware [${idx}] to route [${route.method}] - ${route.path}.`,
+                        )
+                    }
                 }
             }
 
             // route middlewares
             const { middlewares: routeMiddlewares, handler } = route
-            for (const mid of routeMiddlewares) allMiddlewares.push(mid)
+            for (const mid of routeMiddlewares) allMiddlewares.push(mid.handler)
 
             let index = 0
             const middlewareWithParsedRequest: Handler[] = [

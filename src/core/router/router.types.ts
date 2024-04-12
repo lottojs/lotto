@@ -154,6 +154,11 @@ export type Context = {
 }
 export type Handler = (ctx: Context) => void
 
+export type Middleware = {
+    handler: Handler
+    group: number
+}
+
 export type Route = {
     /**
      * Route HTTP Method e.g.: GET, POST...
@@ -178,5 +183,10 @@ export type Route = {
     /**
      * Route middlewares.
      */
-    middlewares: Handler[]
+    middlewares: Middleware[]
+
+    /**
+     * Route group to be used on middlewares.
+     */
+    group: number
 }
