@@ -51,9 +51,9 @@ export function handlerUtils(req: Context['req'], res: Context['res']): void {
  * @returns
  */
 export function buildRouteParameters(path: string) {
-    if (path.endsWith('/')) {
-        path = path.slice(0, -1)
-    }
+    // if (path.endsWith('/')) {
+    //     path = path.slice(0, -1)
+    // }
 
     const escapedPath = path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
     // Replace path parameters (indicated by :param) with named groups

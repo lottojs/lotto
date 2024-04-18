@@ -228,7 +228,7 @@ export class Routing {
             const allMiddlewares: Handler[] = []
 
             // general middlewares
-            const rootRoute = this.match(`${this.prefix}/*`, true, 'ALL')
+            const rootRoute = this.match(`${this.prefix}*`, true, 'ALL')
             if (rootRoute) {
                 const { middlewares } = rootRoute
 
