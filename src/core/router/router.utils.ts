@@ -55,13 +55,14 @@ export function buildRouteParameters(path: string) {
         path = path.slice(0, -1)
     }
 
-    const routeParamsRegex = /:([^/:]+)|\*(?=\/|$)/g
-    const pathWithParams = path.replace(routeParamsRegex, (_, paramName) =>
-        paramName ? `(?<${paramName}>[^/]+)` : '.*',
-    )
-    const pathRegex = new RegExp(
-        `^${pathWithParams}(?:\\?(?<query>.+))?(?:/)?$`,
-    )
+    const escapedPath = path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    // Replace path parameters (indicated by :param) with named groups
+    // eslint-disable-next-line no-useless-escape
+    const pathRegExp = escapedPath.replace(/:([^\/?]+)/g, '(?<$1>[^/?]+)')
+    // Construct a regular expression for query parameters
+    const queryRegExp = '(\\?(?<query>.*)?)?$' // Match query parameters if present
+    // Combine path and query regular expressions
+    const fullRegExp = new RegExp(`^${pathRegExp}${queryRegExp}`)
 
-    return pathRegex
+    return fullRegExp
 }
