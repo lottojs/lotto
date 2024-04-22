@@ -69,6 +69,11 @@ export class Routing {
      */
     protected register(method: Method, path: Path, handler: Handler): boolean {
         path = cleanPath(`/${this.prefix}/${path}`)
+
+        if (path.length > 1 && path.endsWith('/')) {
+            path = path.slice(0, -1);
+        }
+
         const regExpPath = buildRouteParameters(path as string)
         const matchsRoute = this.match(path, false, method)
 
