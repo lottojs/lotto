@@ -145,15 +145,21 @@ export class Routing {
                 const matchsRoute = this.match(mountPoint, false)
                 if (!matchsRoute) {
                     item.routes.forEach((route) => {
+
+                        let fullRoutePath = `/${mountPoint}/${route.path}`;
+                        if (fullRoutePath.length > 1 && fullRoutePath.endsWith('/')) {
+                            fullRoutePath = fullRoutePath.slice(0, -2);
+                        }
+
                         this.register(
                             route.method,
-                            `/${mountPoint}/${route.path}`,
+                            fullRoutePath,
                             route.handler,
                         )
 
                         route.middlewares.forEach((mid) => {
                             this.middleware(
-                                `/${mountPoint}/${route.path}`,
+                                fullRoutePath,
                                 {
                                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                     // @ts-ignore
