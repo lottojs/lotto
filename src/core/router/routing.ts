@@ -38,6 +38,10 @@ export class Routing {
         byRegex: boolean,
         method?: Method,
     ): Route | undefined {
+        if (path.length > 1 && path.endsWith('/')) {
+            path = path.slice(0, -1);
+        }
+
         const isMatch = this.routes.find((route) => {
             if (route.method === method || !method) {
                 if (byRegex) {
